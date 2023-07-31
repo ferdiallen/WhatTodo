@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">What Todo</string>
+    <string name="what_to_do_title">What To Do</string>
+    <string name="todo">Todo</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="save">Save</string>
 </resources>

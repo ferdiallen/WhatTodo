@@ -7,12 +7,13 @@ plugins {
 
 android {
     namespace = "com.example.whattodo"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
+        multiDexEnabled = true
         applicationId = "com.example.whattodo"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -32,11 +33,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -61,9 +63,16 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.compose.icons.extended)
     implementation(libs.room.database)
     ksp(libs.room.compiler)
     implementation(libs.room.coroutine)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.date.picker)
+    implementation(libs.compose.navigation)
+    coreLibraryDesugaring(libs.desugaring)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

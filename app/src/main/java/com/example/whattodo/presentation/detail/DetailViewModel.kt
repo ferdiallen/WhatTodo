@@ -5,13 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.whattodo.data.model.TaskModel
 import com.example.whattodo.domain.repository.TaskRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 class DetailViewModel(
-   private val repository: TaskRepository
+    private val repository: TaskRepository
 ) : ViewModel() {
     var currentTitleTask by mutableStateOf("")
         private set
@@ -32,17 +33,33 @@ class DetailViewModel(
         selectedDate = data
     }
 
+    fun updateCurrentData(id: Int) = viewModelScope.launch {
+        repository.updateDataById(
+            TaskModel(id, currentTitleTask, currentDescription, selectedDate)
+        )
+    }
+
+    fun saveData(data: TaskModel) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insertData(data)
+    }
+
+    fun deleteSelectedTask(id: Int) = viewModelScope.launch {
+        repository.deleteDataById(id)
+    }
+
     fun getCurrentEditData(id: Int) = viewModelScope.launch(Dispatchers.IO) {
         val res = try {
             repository.findTaskById(id)
-        }catch (e:Exception){
+        } catch (e: Exception) {
+            println(e.message)
             return@launch
-        }catch (e:IOException){
+        } catch (e: IOException) {
+            println(e.message)
             return@launch
         }
         res?.let {
             currentTitleTask = it.taskName
-            currentDescription= it.description
+            currentDescription = it.description
             selectedDate = it.dueDate
         }
     }

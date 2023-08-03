@@ -3,7 +3,9 @@ package com.example.whattodo.data.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.whattodo.data.model.TaskModel
 import kotlinx.coroutines.flow.Flow
 
@@ -23,4 +25,7 @@ interface TaskDao {
 
     @Delete
     suspend fun deleteAllTask(data:List<TaskModel>)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateCurrentData(data:TaskModel)
 }

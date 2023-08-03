@@ -125,7 +125,11 @@ fun HomeScreen(
                             Modifier
                                 .fillMaxWidth()
                                 .height(200.dp),
-                            it, clickedItem = {}
+                            it, clickedItem = {
+                                it.id?.let {
+                                    onGoToDetailTask(it)
+                                }
+                            }
                         )
 
                     }

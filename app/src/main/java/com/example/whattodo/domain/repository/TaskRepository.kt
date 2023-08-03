@@ -11,4 +11,8 @@ class TaskRepository(
     suspend fun insertData(data: TaskModel) = db.insertNewTask(data)
 
     suspend fun findTaskById(id:Int) = db.getTaskById(id)
+
+    suspend fun deleteDataById(id:Int) = db.deleteTask(id)
+
+    suspend fun updateDataById(data:TaskModel) = db.updateCurrentData(data)
 }

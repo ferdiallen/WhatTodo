@@ -51,10 +51,8 @@ class DetailViewModel(
         val res = try {
             repository.findTaskById(id)
         } catch (e: Exception) {
-            println(e.message)
             return@launch
         } catch (e: IOException) {
-            println(e.message)
             return@launch
         }
         res?.let {
